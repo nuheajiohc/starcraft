@@ -1,21 +1,26 @@
 package game.race;
 
+import game.factory.Factory;
+import game.factory.ZergFactory;
 import game.unit.Unit;
-import game.unit.zerg.ZergUnit;
 
 public class Zerg extends Race {
     private static final int NUMBER_OF_SPAWN_UNIT = 8;
 
     public Zerg() {
-        super(NUMBER_OF_SPAWN_UNIT);
+        this.spawnedUnits = new Unit[NUMBER_OF_SPAWN_UNIT];
+        setSpawnedUnits();
     }
 
-    public Unit selectRandomUnit(int index) {
-        int randomIndex = (int) (Math.random() * numberOfUnitType);
-        return ZergUnit.values()[randomIndex].getUnit();
+    protected void setSpawnedUnits() {
+        Factory zergFactory = new ZergFactory();
+        for (int i = 0; i < NUMBER_OF_SPAWN_UNIT; i++) {
+            int randomIndex = (int) (Math.random() * numberOfUnitType);
+            this.spawnedUnits[i] = zergFactory.createUnit(randomIndex);
+        }
     }
 
-    public int getNumberOfSpawnUnit(){
+    public int getNumberOfSpawnUnit() {
         return NUMBER_OF_SPAWN_UNIT;
     }
 }

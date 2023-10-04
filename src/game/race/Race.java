@@ -1,10 +1,13 @@
 package game.race;
 
+import game.factory.Factory;
 import game.interfaces.Flyable;
 import game.interfaces.Shootable;
 import game.interfaces.Unflyable;
 import game.unit.Unit;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class Race {
 
@@ -12,16 +15,10 @@ public abstract class Race {
 
     protected int numberOfUnitType = 6;
 
-    protected Race(int numberOfSpawnedUnits) {
-        this.spawnedUnits = new Unit[numberOfSpawnedUnits];
-        setSpawnedUnits();
+    protected Race() {
     }
 
-    private void setSpawnedUnits() {
-        Arrays.setAll(spawnedUnits, this::selectRandomUnit);
-    }
-
-    protected abstract Unit selectRandomUnit(int index);
+    protected abstract void setSpawnedUnits();
 
     public void selectUnitsToBattle(int myUnitIndex, Race anotherRace, int anotherUnitIndex) {
         this.spawnedUnits[myUnitIndex].attack(anotherRace.spawnedUnits[anotherUnitIndex]);
@@ -36,7 +33,11 @@ public abstract class Race {
     public String getRaceState() {
         StringBuilder raceState = new StringBuilder();
         for (int i = 0; i < spawnedUnits.length; i++) {
-            raceState.append(String.format("%d. %s%n", i, spawnedUnits[i].getUnitState()));
+            String unitState = spawnedUnits[i].getUnitState();
+            if (unitState == null) {
+                continue;
+            }
+            raceState.append(String.format("%d. %s%n", i, unitState));
         }
         return raceState.toString();
     }

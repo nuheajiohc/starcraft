@@ -21,6 +21,9 @@ public class Unit {
     }
 
     public String getUnitState() {
+        if(this.currentDefensePower==0){
+            return null;
+        }
         return String.format("%-10s - 현재 방어력 [%d / %d]", this.getClass().getSimpleName(), this.currentDefensePower,
                 this.settingDefensePower);
     }

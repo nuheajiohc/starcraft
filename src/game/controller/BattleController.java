@@ -50,7 +50,7 @@ public class BattleController {
 
         boolean isInIndex = this.user.getNumberOfSpawnUnit() > myUnitIndex || this.user.getNumberOfSpawnUnit() < 0 ||
                 this.user.getNumberOfSpawnUnit() > enemyUnitIndex;
-        if (isInIndex) {
+        if (!isInIndex) {
             attackEnemy();
         }
 
