@@ -47,7 +47,10 @@ public class BattleController {
         int myUnitIndex = Integer.parseInt(unitsIndex[0]);
         int enemyUnitIndex = Integer.parseInt(unitsIndex[1]);
 
-        if(this.user.getNumberOfSpawnUnit()>myUnitIndex || this.user.getNumberOfSpawnUnit()<0 ||this.user.getNumberOfSpawnUnit()>enemyUnitIndex){
+
+        boolean isInIndex = this.user.getNumberOfSpawnUnit() > myUnitIndex || this.user.getNumberOfSpawnUnit() < 0 ||
+                this.user.getNumberOfSpawnUnit() > enemyUnitIndex;
+        if (isInIndex) {
             attackEnemy();
         }
 
